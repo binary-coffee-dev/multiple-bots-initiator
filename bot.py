@@ -21,6 +21,7 @@ def help(update, context):
 
 
 def echo(update, context):
+    print (update)
     """Echo the user message."""
     today = datetime.datetime.utcnow()
     last_week = today - datetime.timedelta(weeks=3)
