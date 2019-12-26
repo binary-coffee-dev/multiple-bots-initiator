@@ -1,6 +1,8 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-from env import NEWS_API_KEY, BOT_API_KEY
+import os
+NEWS_API_KEY = os.environ['NEWS_API_KEY']
+BOT_API_KEY = os.environ['BOT_API_KEY']
 
 import datetime
 
