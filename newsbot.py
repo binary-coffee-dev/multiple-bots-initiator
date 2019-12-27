@@ -1,8 +1,6 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from env import NEWS_API_KEY, NEWS_BOT_API_KEY
 
-import os
-NEWS_API_KEY = os.environ['NEWS_API_KEY']
-BOT_API_KEY = os.environ['BOT_API_KEY']
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 import datetime
 
@@ -45,7 +43,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater(BOT_API_KEY, use_context=True)
+    updater = Updater(NEWS_BOT_API_KEY, use_context=True)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
