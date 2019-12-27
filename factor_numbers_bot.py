@@ -29,7 +29,10 @@ def echo(update, context):
     print (update)
     # TODO: get a list of valid numbers from update.message.text
     number = int(update.message.text)
-    update.message.reply_text(factor(number))
+    if number > 2 ** 40:
+        update.message.reply_text('Number is to big.')
+    else:
+        update.message.reply_text(factor(number))
 
 
 class FactorNumbersBot(metaclass=SingletonByArgs):
