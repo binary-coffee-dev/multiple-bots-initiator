@@ -11,7 +11,7 @@ def start(update, context):
     update.message.reply_text('Hello, type some numbers to factor them.')
 
 def help(update, context):
-    update.message.reply_text('Type numbers to factor them. Any non valid number will be ignore, ex: 123dz')    
+    update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
 def factor(number):
     primes = []
