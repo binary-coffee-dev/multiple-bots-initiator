@@ -4,9 +4,6 @@ from SingletonByArgs import SingletonByArgs
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-
-# Define a few command handlers. These usually take the two arguments update and
-# context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     update.message.reply_text('Hello, type some numbers to factor them.')
 
@@ -25,7 +22,7 @@ def factor(number):
         primes.append(number)
     return primes
 
-def echo(update, context):
+def reply(update, context):
     print (update)
     # TODO: get a list of valid numbers from update.message.text
     number = int(update.message.text)
@@ -46,11 +43,10 @@ class FactorNumbersBot(metaclass=SingletonByArgs):
         dp.add_handler(CommandHandler("help", help))
 
         # on noncommand i.e message - echo the message on Telegram
-        dp.add_handler(MessageHandler(Filters.text, echo))
+        dp.add_handler(MessageHandler(Filters.text, reply))
 
     def start(self):
         print(self.updater)
-        # Start the Bot
         return self.updater.start_polling(poll_interval=0.12)
 
     def stop(self):

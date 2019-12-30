@@ -9,8 +9,6 @@ from newsapi import NewsApiClient
 
 newsapi = NewsApiClient(api_key=NEWS_API_KEY)
 
-# Define a few command handlers. These usually take the two arguments update and
-# context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Hello type some keywords to start searching for news on the web.')
@@ -19,7 +17,7 @@ def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Hello type some keywords to start searching for news on the web.')    
 
-def echo(update, context):
+def reply(update, context):
     print (update)
     """Echo the user message."""
     today = datetime.datetime.utcnow()
@@ -47,8 +45,7 @@ class NewsBot(metaclass=SingletonByArgs):
         dp.add_handler(CommandHandler("start", start))
         dp.add_handler(CommandHandler("help", help))
 
-        # on noncommand i.e message - echo the message on Telegram
-        dp.add_handler(MessageHandler(Filters.text, echo))
+        dp.add_handler(MessageHandler(Filters.text, reply))
 
     def start(self):
         print(self.updater)
