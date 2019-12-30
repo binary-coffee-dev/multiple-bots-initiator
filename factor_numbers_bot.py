@@ -1,6 +1,7 @@
 import datetime
 
 from SingletonByArgs import SingletonByArgs
+from factorization import factor
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -9,18 +10,6 @@ def start(update, context):
 
 def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
-
-def factor(number):
-    primes = []
-    prime = 2
-    while prime * prime <= number:
-        while number % prime == 0:
-            primes.append(prime)
-            number //= prime
-        prime += 1
-    if number > 1:
-        primes.append(number)
-    return primes
 
 def reply(update, context):
     print (update)
@@ -35,14 +24,11 @@ def reply(update, context):
 class FactorNumbersBot(metaclass=SingletonByArgs):
     def __init__(self, bot_api_key):
         self.updater = Updater(bot_api_key, use_context=True)
-        # Get the dispatcher to register handlers
         dp = self.updater.dispatcher
 
-        # on different commands - answer in Telegram
         dp.add_handler(CommandHandler("start", start))
         dp.add_handler(CommandHandler("help", help))
 
-        # on noncommand i.e message - echo the message on Telegram
         dp.add_handler(MessageHandler(Filters.text, reply))
 
     def start(self):
