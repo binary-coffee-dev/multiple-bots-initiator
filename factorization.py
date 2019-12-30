@@ -1,15 +1,3 @@
-#def factor(number):
-#    primes = []
-#    prime = 2
-#    while prime * prime <= number:
-#        while number % prime == 0:
-#            primes.append(prime)
-#            number //= prime
-#        prime += 1
-#    if number > 1:
-#        primes.append(number)
-#    return primes
-
 import random
 from math import gcd
 
@@ -96,9 +84,6 @@ def pollard_rho(n, c):
 factors = []
 
 def factoriza(n):
-	if(n == 1):
-		return
-
 	if(isPrime((int)(n)) == True):
 		factors.append((int)(n))
 		return
@@ -113,5 +98,8 @@ def factoriza(n):
 	factoriza((int)(n) // (int)(d))
 
 def factor(n):
-    factoriza(n)
-    return factors
+	if(n == 1):
+		return factors
+	factoriza(n)
+	factors.sort()
+	return factors
