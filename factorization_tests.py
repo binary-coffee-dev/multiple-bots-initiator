@@ -53,6 +53,11 @@ class NaiveFactorizationTests(unittest.TestCase):
             self.assertEqual(1, len(factors))
             self.assertEqual(n, factors[0])
 
+    def test_LargeCompositeNumbers(self):
+        numbers = [30011 * 30011, 1009 * 200003]
+        self.assertTrue(naive_factorization(numbers[0]) == [30011, 30011])
+        self.assertTrue(naive_factorization(numbers[1]) == [1009, 200003])
+
 
 class RhoFactorizationTests(unittest.TestCase):
     def test_SmallPrimes(self):
@@ -75,6 +80,18 @@ class RhoFactorizationTests(unittest.TestCase):
         for n in numbers:
             factors = rho_factorization(n)
             self.assertEqual(0, len(factors))
+
+    def test_Range(self):
+        for n in range(95000, 100000):
+            r1 = naive_factorization(n)
+            r2 = rho_factorization(n)
+            r2.sort()
+            self.assertTrue(r1 == r2)
+
+    def test_LargeCompositeNumbers(self):
+        numbers = [30011 * 19457058324883, 1009 * 200003 * 68500657163]
+        self.assertTrue(naive_factorization(numbers[0]) == [30011, 19457058324883])
+        self.assertTrue(naive_factorization(numbers[1]) == [1009, 200003, 68500657163])            
 
 
 if __name__ == '__main__':
