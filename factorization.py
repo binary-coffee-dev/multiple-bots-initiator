@@ -55,6 +55,8 @@ def Miller_Rabin(L, n):
 #(2, 3, 5, 7, 11, 13, 17, 31, 61, 73, 23)
 
 def rho_factorization(n):
+	if n < 2:
+		return []
 	if n in (2, 3, 5, 7, 11, 13, 17, 31, 61, 73, 23) or Miller_Rabin((2, 3, 5, 7, 11, 13, 17, 31, 61, 73, 23), n) == True:
 		return [n, ]
 	d = rho_try(n, random.randint(1, 100), random.randint(3, 10000))
