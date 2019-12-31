@@ -1,15 +1,6 @@
 import random
 from math import gcd
 
-def pow_(a, b, M):
-	x = 1
-	while(b > 0):
-		if(b & 1):
-			x = mul(x, a, M)
-		a = mul(a, a, M)
-		b >>= 1
-	return x
-
 def mul(a, b, mod):
     ret = 0
     while(True):
@@ -27,15 +18,6 @@ def mul(a, b, mod):
     		a -= mod
     return ret
 
-def mpow2(x, y, mod):
-    ret = 1;
-    while(y):
-        if(y & 1): 
-            ret = mul(ret, (int)(x), mod)
-        y >>= 1
-        x = mul((int)(x), (int)(x), mod)
-    return ret % mod;
-
 def isPrime(p):
     if(p == 2):
     	return 1
@@ -48,38 +30,33 @@ def isPrime(p):
     while(q % 2 == 0):
     	q >>= 1
     	k += 1
-    for it in range(0, 2):
-        a = random.randint(0, p) % (p - 4) + 2
-        t = mpow2(a, q, p);
-        b = ((t == 1) or (t == p - 1))
+    for it in range(0, 10):
+        a = random.randint(1, p - 1)
+        t = pow(a, q, p);
+        b = (((int)(t) == 1) or ((int)(t) == (int)(p - 1)))
         for i in range(1, k):
        		if(b):
        			break
-       		t = mul(t, t, p)
-       		if(t == p - 1):
+       		t = mul(t, (int)(t), p)
+       		if((int)(t) == (int)(p - 1)):
        			b = 1
-        if(b == 0):
+        if((int)(b) == 0):
             return 0
     return 1
 
-def pollard_rho(n, c):
-    x = 2
-    y = 2
-    i = 1
-    k = 2
-    d = 0
-    while(True):
-        x = (mul(x, x, n) + c)
-        if (x >= n):
-        	x -= n
-        d = gcd(x - y, n)
-        if (d > 1):
-        	return d
-        if (i == k):
-        	y = x
-        	k <<= 1
-        i += 1
-    return n;
+def pollard_rho(n, a, c):
+	x = 2
+	y = 2
+	d = 1
+	while(d == 1):
+		x = (a * x * x + c) % n
+		y = (a * y * y + c) % n
+		y = (a * y * y + c) % n
+		d = gcd(abs(x - y), n)
+		if(d == n):
+			return 0
+	return d
+
 
 factors = []
 
@@ -87,18 +64,14 @@ def factoriza(n):
 	if(isPrime((int)(n)) == True):
 		factors.append((int)(n))
 		return
-	i = 2
-	d = n
-	while(True):
-		if(d != n):
-			break
-		d = pollard_rho((int)(n), i)
-		i += 1
-	factoriza(d)
+	d = pollard_rho((int)(n), random.randint(1, 100), random.randint(3, 10000))
+	while(d == 0):
+		d = pollard_rho((int)(n), random.randint(1, 100), random.randint(3, 10000))
+	factoriza((int)(d))
 	factoriza((int)(n) // (int)(d))
 
 def factor(n):
-	if(n == 1):
+	if((int)(n) == 1):
 		return factors
 	factoriza(n)
 	factors.sort()
