@@ -18,7 +18,6 @@ def help(update, context):
     update.message.reply_text('Hello type some keywords to start searching for news on the web.')    
 
 def reply(update, context):
-    print (update)
     """Echo the user message."""
     today = datetime.datetime.utcnow()
     last_week = today - datetime.timedelta(weeks=3)
