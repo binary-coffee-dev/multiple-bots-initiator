@@ -12,10 +12,9 @@ def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
 def reply(update, context):
-    print (update)
     # TODO: get a list of valid numbers from update.message.text
     number = int(update.message.text)
-    if number > 2 ** 40:
+    if number > 2 ** 100:
         update.message.reply_text('Number is to big.')
     else:
         update.message.reply_text(factor(number))
