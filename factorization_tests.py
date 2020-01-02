@@ -1,6 +1,7 @@
 import unittest
 from factorization import naive_factorization
 from factorization import rho_factorization
+from factorization import gnu_factor
 
 
 def prod(numbersArray):
@@ -91,8 +92,16 @@ class RhoFactorizationTests(unittest.TestCase):
     def test_LargeCompositeNumbers(self):
         numbers = [30011 * 19457058324883, 1009 * 200003 * 68500657163]
         self.assertTrue(naive_factorization(numbers[0]) == [30011, 19457058324883])
-        self.assertTrue(naive_factorization(numbers[1]) == [1009, 200003, 68500657163])            
+        self.assertTrue(naive_factorization(numbers[1]) == [1009, 200003, 68500657163])
 
+class GNUFactorizationTests(unittest.TestCase):
+    def test_SeveralNumbers(self):
+        numbers = [30011 * 19457058324883, 1009 * 200003 * 68500657163, 2, 7]
+        input = ' '.join(str(x) for x in numbers)
+        output = gnu_factor(input)
+        expected = str(numbers[0]) + ": 30011 19457058324883\n" + str(numbers[1]) + ": 1009 200003 68500657163\n2: 2\n7: 7\n"
+        self.assertEqual(expected, output)
+        
 
 if __name__ == '__main__':
     unittest.main()
