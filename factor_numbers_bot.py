@@ -1,9 +1,12 @@
 import datetime
 
 from SingletonByArgs import SingletonByArgs
-from factorization import factor
+from factorization import gnu_factor
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+
+MAX_INPUT_SIZE = 1000 # 1Kb of text
 
 def start(update, context):
     update.message.reply_text('Hello, type some numbers to factor them.')
@@ -12,12 +15,13 @@ def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
 def reply(update, context):
-    # TODO: get a list of valid numbers from update.message.text
-    number = int(update.message.text)
-    if number > 2 ** 100:
-        update.message.reply_text('Number is to big.')
+    print (update)
+    input = update.message.text
+    if len(input) > MAX_INPUT_SIZE:
+        update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
     else:
-        update.message.reply_text(factor(number))
+        output = gnu_factor(input)
+        update.message.reply_text(output)
 
 
 class FactorNumbersBot(metaclass=SingletonByArgs):

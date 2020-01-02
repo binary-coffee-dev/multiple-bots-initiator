@@ -76,6 +76,19 @@ def naive_factorization(number):
         primes.append(number)
     return primes
 
+def gnu_factor(input):
+	import subprocess
+	inputArgs = input.split()
+	args = ["factor", ]
+	args += inputArgs
+	output = subprocess.run(
+		args=args,
+		shell=True, 
+		universal_newlines=True, 
+		stdout=subprocess.PIPE,
+		stderr=subprocess.STDOUT)
+	return output.stdout		
+
 def factor(number):
     primes = rho_factorization(number)
     primes.sort()
