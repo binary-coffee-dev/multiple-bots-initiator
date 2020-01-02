@@ -15,8 +15,8 @@ def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
 def reply(update, context):
-    print (update)
     input = update.message.text
+    print(input)
     if len(input) > MAX_INPUT_SIZE:
         update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
     else:
