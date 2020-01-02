@@ -27,7 +27,6 @@ def reply(update, context):
             print (e)
         
 
-
 class FactorNumbersBot(metaclass=SingletonByArgs):
     def __init__(self, bot_api_key):
         self.updater = Updater(bot_api_key, use_context=True)

@@ -83,7 +83,6 @@ def gnu_factor(input):
 	args += inputArgs
 	output = subprocess.run(
 		args=args,
-		shell=True, 
 		universal_newlines=True, 
 		stdout=subprocess.PIPE,
 		stderr=subprocess.STDOUT)
