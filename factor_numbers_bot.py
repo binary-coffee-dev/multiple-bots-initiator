@@ -20,8 +20,12 @@ def reply(update, context):
     if len(input) > MAX_INPUT_SIZE:
         update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
     else:
-        output = gnu_factor(input)
-        update.message.reply_text(output)
+        try:
+            output = gnu_factor(input)
+            update.message.reply_text(output)
+        except Exception as e:
+            print (e)
+        
 
 
 class FactorNumbersBot(metaclass=SingletonByArgs):
