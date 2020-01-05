@@ -4,9 +4,7 @@ from SingletonByArgs import SingletonByArgs
 from factorization import gnu_factor
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-
-from multiprocessing import Process
-
+from telegram.ext.dispatcher import run_async
 
 MAX_INPUT_SIZE = 1000 # 1Kb of text
 
@@ -16,19 +14,19 @@ def start(update, context):
 def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
-def factorAndReply(update, input):
-    output = gnu_factor(input)
-    update.message.reply_text(output)
-
+@run_async
 def reply(update, context):
+    bot = context.bot
+    chat_id = update.message.chat_id
     input = update.message.text
     print(input)
     if len(input) > MAX_INPUT_SIZE:
-        update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
+        bot.send_message(chat_id, 'Input size is to big. Please, send message with 1000 or less characters.')
     else:
         try:
-            proc = Process(target=factorAndReply, args=(update, input))
-            proc.start()
+            bot.send_message(chat_id, 'Factoring...')
+            output = gnu_factor(input)
+            bot.send_message(chat_id, output)
         except Exception as e:
             print ("Error: " + str(e))
         
