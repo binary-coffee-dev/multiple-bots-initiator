@@ -5,6 +5,8 @@ from factorization import gnu_factor
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+from multiprocessing import Process
+
 
 MAX_INPUT_SIZE = 1000 # 1Kb of text
 
@@ -14,6 +16,10 @@ def start(update, context):
 def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
+def factorAndReply(update, input):
+    output = gnu_factor(input)
+    update.message.reply_text(output)
+
 def reply(update, context):
     input = update.message.text
     print(input)
@@ -21,10 +27,9 @@ def reply(update, context):
         update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
     else:
         try:
-            output = gnu_factor(input)
-            update.message.reply_text(output)
+            Process(target=factorAndReply, args=(update, input)).start()
         except Exception as e:
-            print (e)
+            print ("Error: " + str(e))
         
 
 class FactorNumbersBot(metaclass=SingletonByArgs):
