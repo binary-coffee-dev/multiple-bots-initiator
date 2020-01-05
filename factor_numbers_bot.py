@@ -27,7 +27,8 @@ def reply(update, context):
         update.message.reply_text('Input size is to big. Please, send message with 1000 or less characters.')
     else:
         try:
-            Process(target=factorAndReply, args=(update, input)).start()
+            proc = Process(target=factorAndReply, args=(update, input))
+            proc.start()
         except Exception as e:
             print ("Error: " + str(e))
         
