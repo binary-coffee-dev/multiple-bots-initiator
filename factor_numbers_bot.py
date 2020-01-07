@@ -14,7 +14,6 @@ def start(update, context):
 def help(update, context):
     update.message.reply_text('Type numbers to factor them. Any not valid number will be ignored, ex: 123dz')    
 
-@run_async
 def reply(update, context):
     bot = context.bot
     chat_id = update.message.chat_id
